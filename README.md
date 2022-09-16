@@ -1,5 +1,9 @@
-# UDQL: Universal Dependency and Quantitative Linguistics Toolkit
+# UDQL
+## 引入
+* 从CONLL到词节点的完整流程
+	1. 载入conll文件为森林对象(不是树的集合)
+	1. 解包森林对象为树对象们(树的列表)
+
 ## 功能与实现
-### 功能查实现
-#### 动词索引
-* 
+* 载入conll文件为森林对象
+* 解包森林对象为树对象们
