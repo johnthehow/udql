@@ -16,8 +16,10 @@
 		* 森林对象 = udql.forrester(CONLL文件位置)
 * 解包
 	* 解包森林对象为树林列表
-		* 树林对象 = 森林对象.data_forrest
+		* 树林列表 = 森林对象.data_forrest
 * 查看/返回/获得
+	* 获得一个树对象
+		* 树对象 = 树林列表[树序号]
 	* 树对象的原始CONLL数据
 		* 树对象.data_tree_raw
 	* 树对象的所有单词
