@@ -44,3 +44,11 @@
 			* 词节点对象.get_head()
 		* 从属词节点列表
 			* 词节点对象.get_children()
+	* 森林中的树数量
+		* 森林对象.stat_forrest_size
+	* 森林中的平均句长
+		* 森林对象.stat_mean_sent_len
+	* 森林的绝对平均依存距离(abs MDD)
+		* 森林对象.index_forrest_mdd_abs
+	* 森林的相对平均依存距离(rel MDD)
+		* 森林对象.index_forrest_mdd_rel
