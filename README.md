@@ -38,8 +38,10 @@
 	* 一个词节点对象的
 		* 词形
 			* 词节点对象.form
-		* 词性
+		* 词性(UD tagset)
 			* 词节点对象.upos
+		* 词性(非UD tagset)
+			* 词节点对象.xpos
 		* 依存关系
 			* 词节点对象.deprel
 		* 支配词节点对象
@@ -54,3 +56,11 @@
 		* 森林对象.index_forrest_mdd_abs
 	* 森林的相对平均依存距离(rel MDD)
 		* 森林对象.index_forrest_mdd_rel
+	* 一个树对象的原始CONLL数据
+		* 树对象.data_tree_raw
+	* 一个树对象的绝对平均依存距离
+		* 树对象.index_mdd_abs
+	* 一个树对象的相对平均依存距离
+		* 树对象.index_mdd_rel
+	* 一个树对象的token数(句长)
+		* 数对象.stat_length
