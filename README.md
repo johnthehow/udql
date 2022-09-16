@@ -24,7 +24,7 @@
 		* 树对象.data_tree_raw
 	* 树对象的所有单词
 		* 树对象.get_all_forms()
-	* 一个词,作为node对象
+	* 词节点对象列表
 		* 通过词形
 			* 树对象.get_nodes_by_form('词形')
 		* 通过序号
@@ -33,3 +33,14 @@
 			* 树对象.get_nodes_by_upos('词性')
 		* 通过依存关系
 			* 树对象.get_node_by_deprel('依存关系')
+	* 一个词节点对象的
+		* 词形
+			* 词节点对象.form
+		* 词性
+			* 词节点对象.upos
+		* 依存关系
+			* 词节点对象.deprel
+		* 支配词节点对象
+			* 词节点对象.get_head()
+		* 从属词节点列表
+			* 词节点对象.get_children()
