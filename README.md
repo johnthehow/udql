@@ -1,4 +1,7 @@
 # UDQL
+## 依赖
+* lexical_diversity
+
 ## 引入
 * 世界观
 	1. 森林对象 (forrester)
