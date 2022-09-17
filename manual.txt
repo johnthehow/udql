@@ -1,0 +1,72 @@
+print('''
+>>> [thehow.udql]
+UDQL: Universal Dependencies for Quantitative Linguistics
+Universal Denpendencies计量语言学处理工具包
+
+功能:
+1. 将conllu格式的UD树库实例化为Forrest对象>Tree对象>Node对象结构
+2. 计算Absolute MDD绝对平均依存距离
+3. 计算Relative MDD相对平均依存距离
+
+未来计划:
+* 加入复杂网络相关指标
+* 加入变量间关系自动匹配功能
+	* 线性关系
+		* 实现
+			* 线性相关系数
+			* 线性回归
+	* 非线性关系
+		* 函数关系
+			* 实现
+				* 分布拟合
+				* 非线性回归
+				* 神经网络
+
+已知问题:
+1. udnode的代码提示中客串了udtree的属性和方法
+
+使用手册:
+1. class forrester
+	属性
+		stat_forrest_size	统计: 树库中包含的树数量
+		stat_forrest_mean_sent_len	统计: 树库中的平均句长
+		index_forrest_mdd_abs	指标: 树库绝对mdd
+		index_forrest_mdd_rel	指标: 树库相对mdd
+		data_forrest		统计: 森林对象(本类的主要功能)	
+	方法
+		get_forrest_mdd_abs()	方法: 计算树库的绝对MDD
+		get_forrest_mdd_rel()	方法: 计算树库的相对MDD
+		get_worder_free()	方法: 计算树库的语序自由度
+		get_morph_rich(measure)	方法: 计算树库的形态丰富度
+
+2. class udtree
+	属性
+		data_tree_raw	数据: 一棵树的原始数据(tab切分过的)
+		index_mdd_abs	指标: 一棵树的绝对MDD
+		index_mdd_rel	指标: 一棵树的相对MDD
+		stat_length	指标: 一棵树的token数(长度)
+	方法
+		get_all_forms()	方法: 显示一棵树的文本内容
+		get_all_nodes()	方法: 返回一棵树的所有token作为udnode对象
+		get_form_by_id(id)	方法: 根据id显示一个token的文本内容
+		get_node_by_id(id)	方法: 返回一个token通过id, 作为udnode对象
+		get_form_by_deprel(deprel)	方法: 返回一课树满足依存关系deprel的form
+		get_node_by_deprel(deprel)	方法: 返回一棵树满足依存关系deprel的udnode对象
+		get_mdd_abs	方法: 返回一棵树的绝对MDD
+		get_mdd_rel	方法: 返回一棵树的相对MDD
+
+3. class udnode
+	属性
+		id	id
+		deprel	依存关系: 该词是其支配词的什么
+		headid	支配词id
+		form	该词的形式
+		lemma	该词的词典形
+		upos	该词的UD词性标签
+		xpos	该词的非UD词性标签
+		feats	该词的其他标注属性
+	方法
+		get_head()	获得该词的支配词(作为udnode)
+		get_children()	获得该词的从属词(作为[udnode])
+		get_children_by_deprel()	获得该词的满足deprel依存关系的从属词
+	''')
