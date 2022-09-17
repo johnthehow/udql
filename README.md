@@ -35,6 +35,14 @@
 		* 森林对象.get_worder_free()
 	* 森林对象的形态丰富度
 		* 森林对象.get_morph_rich('指标')
+			* MATTR
+			* MSTTR
+			* HDD
+			* MTLD
+			* MTLDMABID
+
+	* 树对象
+		* 树对象 = 树林列表[树序号]
 	* 树对象的原始CONLL数据
 		* 树对象.data_tree_raw
 	* 树对象的绝对平均依存距离
@@ -43,11 +51,6 @@
 		* 树对象.index_mdd_rel
 	* 树对象的token数(句长)
 		* 数对象.stat_length
-
-	* 树对象
-		* 树对象 = 树林列表[树序号]
-	* 树对象的原始CONLL数据
-		* 树对象.data_tree_raw
 	* 树对象的所有单词
 		* 树对象.get_all_forms()
 
