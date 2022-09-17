@@ -61,6 +61,10 @@
 		* 森林对象.index_forrest_mdd_abs
 	* 森林的相对平均依存距离(rel MDD)
 		* 森林对象.index_forrest_mdd_rel
+	* 森林的语序自由度
+		* 森林对象.get_worder_free()
+	* 森林的形态丰富度
+		* 森林对象.get_morph_rich('指标')
 	* 一个树对象的原始CONLL数据
 		* 树对象.data_tree_raw
 	* 一个树对象的绝对平均依存距离
