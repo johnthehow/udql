@@ -23,12 +23,34 @@
 	* 解包森林对象为树林列表
 		* 树林列表 = 森林对象.data_forrest
 * 查看/返回/获得
-	* 获得一个树对象
+	* 森林对象中的树数量
+		* 森林对象.stat_forrest_size
+	* 森林对象的平均句长
+		* 森林对象.stat_mean_sent_len
+	* 森林对象的绝对平均依存距离(abs MDD)
+		* 森林对象.index_forrest_mdd_abs
+	* 森林对象的相对平均依存距离(rel MDD)
+		* 森林对象.index_forrest_mdd_rel
+	* 森林对象的语序自由度
+		* 森林对象.get_worder_free()
+	* 森林对象的形态丰富度
+		* 森林对象.get_morph_rich('指标')
+	* 树对象的原始CONLL数据
+		* 树对象.data_tree_raw
+	* 树对象的绝对平均依存距离
+		* 树对象.index_mdd_abs
+	* 树对象的相对平均依存距离
+		* 树对象.index_mdd_rel
+	* 树对象的token数(句长)
+		* 数对象.stat_length
+
+	* 树对象
 		* 树对象 = 树林列表[树序号]
 	* 树对象的原始CONLL数据
 		* 树对象.data_tree_raw
 	* 树对象的所有单词
 		* 树对象.get_all_forms()
+
 	* 词节点对象列表
 		* 通过词形
 			* 树对象.get_nodes_by_form('词形')
@@ -38,7 +60,7 @@
 			* 树对象.get_nodes_by_upos('词性')
 		* 通过依存关系
 			* 树对象.get_node_by_deprel('依存关系')
-	* 一个词节点对象的
+	* 词节点对象的
 		* 词形
 			* 词节点对象.form
 		* 词性(UD tagset)
@@ -53,23 +75,3 @@
 			* 词节点对象.get_children()
 		* 在句中的绝对位置(从0开始)
 			* 词节点对象.id
-	* 森林中的树数量
-		* 森林对象.stat_forrest_size
-	* 森林中的平均句长
-		* 森林对象.stat_mean_sent_len
-	* 森林的绝对平均依存距离(abs MDD)
-		* 森林对象.index_forrest_mdd_abs
-	* 森林的相对平均依存距离(rel MDD)
-		* 森林对象.index_forrest_mdd_rel
-	* 森林的语序自由度
-		* 森林对象.get_worder_free()
-	* 森林的形态丰富度
-		* 森林对象.get_morph_rich('指标')
-	* 一个树对象的原始CONLL数据
-		* 树对象.data_tree_raw
-	* 一个树对象的绝对平均依存距离
-		* 树对象.index_mdd_abs
-	* 一个树对象的相对平均依存距离
-		* 树对象.index_mdd_rel
-	* 一个树对象的token数(句长)
-		* 数对象.stat_length
