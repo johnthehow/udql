@@ -1,4 +1,11 @@
-class forrester:
+'''
+Major classes for UDQL:
+	forrest object
+	tree object
+	node object
+'''
+
+class cls_forrest:
 	def __init__(self,filename):
 		# 原理: 将conllu文件遇到空行就截断成一棵树
 		self.__filename = filename
@@ -29,35 +36,35 @@ class forrester:
 		self.__cut_tree_segs = [[tkline for tkline in tree if tkline[0].find('-') == -1] for tree in self.__cut_tree_segs]
 		self.__cut_tree_segs = [[tkline for tkline in tree if tkline[0].find('.') == -1] for tree in self.__cut_tree_segs]
 		# 将每个行列表形式的树实例化为对象树, 依赖udtree类
-		self.data_forrest = [udtree(line) for line in self.__cut_tree_segs]
+		self.data_all_trees = [cls_udtree(line) for line in self.__cut_tree_segs]
 		# 如果森林末尾有空树, 删除这个空树
-		if self.data_forrest[-1].get_all_forms() == []:
-			self.data_forrest = self.data_forrest[:-1]
+		if self.data_all_trees[-1].get_all_forms() == []:
+			self.data_all_trees = self.data_all_trees[:-1]
 		# 描述统计: 树库中的树数量
-		self.stat_forrest_size = len(self.data_forrest)
+		self.stat_forrest_size = len(self.data_all_trees)
 		# 描述统计: 树库中的平均句长
 		self.stat_forrest_mean_sent_len = self.__get_mean_sent_len()
 		# 指标MDD_ABS
-		self.index_forrest_mdd_abs = self.get_forrest_mdd_abs()
+		self.index_forrest_abs_mdd = self.__get_forrest_abs_mdd()
 		# 指标MDD_REL
-		self.index_forrest_mdd_rel = self.get_forrest_mdd_rel()
+		self.index_forrest_rel_mdd = self.__get_forrest_rel_mdd()
 		self.__udfile.close()
 	def __get_mean_sent_len(self):
-		forrest = self.data_forrest
+		forrest = self.data_all_trees
 		sent_lens = [tree.stat_length for tree in forrest]
 		msl = sum(sent_lens)/len(sent_lens)
 		return msl
-	def get_forrest_mdd_abs(self):
+	def __get_forrest_abs_mdd(self):
 		# 绝对MDD
-		forrest = self.data_forrest
+		forrest = self.data_all_trees
 		dds = []
 		for tree in forrest:
 			dds.append(tree.get_mdd_abs())
 		mdd_abs = sum(dds)/len(dds)
 		return mdd_abs
-	def get_forrest_mdd_rel(self):
+	def __get_forrest_rel_mdd(self):
 		# 相对MDD, 绝对MDD除去句长的影响
-		forrest = self.data_forrest
+		forrest = self.data_all_trees
 		dds = []
 		sent_lens = []
 		for tree in forrest:
@@ -71,11 +78,11 @@ class forrester:
 		# 语序自由度
 		import scipy
 		from scipy import spatial
-		forrest = self.data_forrest
+		forrest = self.data_all_trees
 		match_tree = []
 		svo,sov,vso,vos,osv,ovs = [],[],[],[],[],[]
 		for tree in forrest:
-			nsubjs = [nsubj for nsubj in tree.get_node_by_deprel('nsubj')]
+			nsubjs = [nsubj for nsubj in tree.get_nodes_by_deprel('nsubj')]
 			if len(nsubjs) != 0:
 				for nsubj in nsubjs:
 					fin_verb = nsubj.get_head()
@@ -137,7 +144,7 @@ class forrester:
 		mamr = raw_txt_morph_rich - lem_txt_morph_rich
 		return mamr
 
-class udtree:
+class cls_udtree:
 	def __init__(self,tree_data):
 		self.stat_length = len(tree_data)
 		self.data_tree_raw = tree_data
@@ -156,30 +163,30 @@ class udtree:
 	def get_form_by_deprel(self,deprel):
 		res_deprel = [line[1] for line in self.data_tree_raw if line[7]==deprel]
 		return res_deprel
-	def get_node_by_deprel(self,deprel):
+	def get_nodes_by_deprel(self,deprel):
 		id_list = [int(line[0]) for line in self.data_tree_raw if line[7]==deprel]
-		nodelist = [self.get_node_by_id(nid) for nid in id_list]
+		nodelist = [self.get_nodes_by_id(nid) for nid in id_list]
 		return nodelist
 	def get_form_by_upos(self,upos):
 		res_upos = [line[1] for line in self.data_tree_raw if line[3]==upos]
 		return res_upos
 	def get_nodes_by_upos(self,upos):
 		id_list = [int(line[0]) for line in self.data_tree_raw if line[3]==upos]
-		nodelist = [self.get_node_by_id(nid) for nid in id_list]
+		nodelist = [self.get_nodes_by_id(nid) for nid in id_list]
 		return nodelist
 	def get_form_by_id(self,id):
 		res_id = [line[1] for line in self.data_tree_raw if line[0]==str(id)]
 		return res_id
-	def get_node_by_id(self,id):
-		node = udnode(self.get_raw_line_by_id(id),self.data_tree_raw)
+	def get_nodes_by_id(self,id):
+		node = cls_udnode(self.get_raw_line_by_id(id),self.data_tree_raw)
 		return node
 	def get_nodes_by_form(self,form):
 		form = form.lower()
-		nodes = [udnode(line_raw,self.data_tree_raw) for line_raw in self.get_raw_lines_by_form(form)]
+		nodes = [cls_udnode(line_raw,self.data_tree_raw) for line_raw in self.get_raw_lines_by_form(form)]
 		return nodes
 	def get_all_nodes(self):
 		id_list = [int(line[0]) for line in self.data_tree_raw]
-		nodelist = [self.get_node_by_id(nid) for nid in id_list]
+		nodelist = [self.get_nodes_by_id(nid) for nid in id_list]
 		return nodelist
 	def get_mdd_abs(self):
 		nodelist = self.get_all_nodes()
@@ -205,9 +212,7 @@ class udtree:
 		mdd_rel = sum(ddlist)/len(nodelist)
 		return mdd_rel
 
-
-
-class udnode(udtree):
+class cls_udnode(cls_udtree):
 	def __init__(self,node_data,tree_data):
 		super().__init__(tree_data)
 		self.id = int(node_data[0])
@@ -222,11 +227,11 @@ class udnode(udtree):
 		if int(self.headid) == 0:
 			self.head = self
 		else:
-			self.head = self.get_node_by_id(int(self.headid))
+			self.head = self.get_nodes_by_id(int(self.headid))
 		return self.head
 	def get_children(self):
 		children_id = [int(line[0]) for line in self.data_tree_raw if int(line[6]) == self.id]
-		children = [self.get_node_by_id(childid) for childid in children_id]
+		children = [self.get_nodes_by_id(childid) for childid in children_id]
 		return children
 	def get_children_by_deprel(self,deprel):
 		children = self.get_children()
@@ -235,44 +240,3 @@ class udnode(udtree):
 	def get_depdistance(self):
 		depdistance = abs(self.id-self.headid)
 		return depdistance
-
-def get_word_mdd(word,trees):
-	''' 在tree组成的list(从forrester.data_forrest获得)中计算一个词的平均依存距离'''
-	worddd = []
-	for tree in trees:
-		wordnodes = tree.get_nodes_by_form(word)
-		for wordnode in wordnodes:
-			worddd.append(wordnode.get_depdistance())
-	wordmdd = sum(worddd)/len(worddd)
-	return wordmdd
-
-def get_deprel_mdd(deprel,trees):
-	'''获得一个依存关系的在所有句子中的平均依存距离'''
-	depreldds = []
-	for tree in trees:
-		tree_node_dep_diss = []
-		deprel_nodes = tree.get_node_by_deprel(deprel)
-		if len(deprel_nodes) > 0:
-			for node in deprel_nodes:
-				dep_dis = abs(node.id-node.headid)
-				tree_node_dep_diss.append(dep_dis)
-			depreldds.append(sum(tree_node_dep_diss)/len(tree_node_dep_diss))
-		else:
-			pass
-	avg_deprel_dep_dis = sum(depreldds)/len(depreldds)
-	return avg_deprel_dep_dis
-
-def get_pos_mdd(pos,trees):
-	posdds = []
-	for tree in trees:
-		tree_node_dep_diss = []
-		pos_nodes = tree.get_nodes_by_upos(pos)
-		if len(pos_nodes) > 0:
-			for node in pos_nodes:
-				dep_dis = abs(node.id-node.headid)
-				tree_node_dep_diss.append(dep_dis)
-			posdds.append(sum(tree_node_dep_diss)/len(tree_node_dep_diss))
-		else:
-			pass
-	avg_pos_dep_dis = sum(posdds)/len(posdds)
-	return avg_pos_dep_dis

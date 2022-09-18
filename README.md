@@ -4,7 +4,7 @@
 
 ## 引入
 * 世界观
-	1. 森林对象 (forrester)
+	1. 森林对象 (forrest)
 	2. 树林列表(来自森林对象的方法) (list)
 	3. 树对象 (udtree)
 	4. 词节点对象 (udnode)
@@ -18,7 +18,7 @@
 ### 动词索引
 * 载入
 	* 载入conll文件为森林对象
-		* 森林对象 = udql.forrester(CONLL文件位置)
+		* 森林对象 = udql.entities.cls_forrest(CONLL文件位置)
 * 解包
 	* 解包森林对象为树林列表
 		* 树林列表 = 森林对象.data_forrest
@@ -58,11 +58,11 @@
 		* 通过词形
 			* 树对象.get_nodes_by_form('词形')
 		* 通过序号(从1开始)
-			* 树对象.get_node_by_id(整数序号)
+			* 树对象.get_nodes_by_id(整数序号)
 		* 通过词性
 			* 树对象.get_nodes_by_upos('词性')
 		* 通过依存关系
-			* 树对象.get_node_by_deprel('依存关系')
+			* 树对象.get_nodes_by_deprel('依存关系')
 	* 词节点对象的
 		* 词形
 			* 词节点对象.form

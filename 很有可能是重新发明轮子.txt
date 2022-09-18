@@ -1,0 +1,2 @@
+因为STANZA就有工具包
+from stanza.utils.conll import CoNLL
