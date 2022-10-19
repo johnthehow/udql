@@ -6,4 +6,4 @@ see README.md and manual.txt for details
 __all__ = ['entities','funcs']
 __author__ = 'John Thehow (lawski@qq.com)'
 
-from udql import entities
+print('udql launched')

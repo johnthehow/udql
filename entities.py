@@ -3,6 +3,7 @@ Major classes for UDQL:
 	forrest object
 	tree object
 	node object
+[依赖] lexical_diversity库
 '''
 
 class cls_forrest:
@@ -11,7 +12,7 @@ class cls_forrest:
 		self.__filename = filename
 		with open(self.__filename,mode='r',encoding='utf-8') as self.__udfile:
 			self.__udlines = self.__udfile.readlines()
-		assert self.__udlines != [], print("空的udlines")
+		assert self.__udlines != [], print("empty udlines")
 		# 删除树库中的注释行
 		self.__udlines = [line for line in self.__udlines if not line.startswith('#')]
 		# 最后一行若不为空行, 添加入空行, 用于截断步骤识别
