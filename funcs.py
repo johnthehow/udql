@@ -43,13 +43,13 @@ def func_pos_mdd(pos,trees):
 	avg_pos_dep_dis = sum(posdds)/len(posdds)
 	return avg_pos_dep_dis
 
-def func_token_head_dist(token,sentlen,trees):
+def func_token_head_pos_dist(token,sentlen,trees,return_dist=True,return_raw_count=False,show_viz=False):
 	'''获得一个词在指定句长的支配词位置分布'''
 	token_selected_trees = []
 	token_len_selected_trees = []
 	token_head_pos = []
 	for tree in trees:
-		if 'the' in [i.lower() for i in tree.get_all_forms()]:
+		if token in [i.lower() for i in tree.get_all_forms()]:
 			token_selected_trees.append(tree)
 	for stree in token_selected_trees:
 		if stree.stat_length == sentlen:
@@ -58,7 +58,32 @@ def func_token_head_dist(token,sentlen,trees):
 		matched_nodes = tstree.get_nodes_by_form(token)
 		for node in matched_nodes:
 			token_head_pos.append(node.headid)
-	return token_head_pos
+	token_head_pos_dist = Counter(token_head_pos)
+	for i in range(1,sentlen+1):
+		if i not in token_head_pos_dist.keys():
+			token_head_pos_dist[i]=0
+	token_head_pos_dist = sorted(token_head_pos_dist.items())
+	if show_viz == True:
+		xs = [i[0] for i in token_head_pos_dist]
+		ys = [i[1] for i in token_head_pos_dist]
+		for i in range(1,sentlen+1):
+			if i not in xs:
+				if i==1:
+					ys = [0]+ys
+				else:
+					try:
+						ys[i-1]=0
+					except:
+						ys.append(0)
+		print(xs)
+		print([i for i in range(1,sentlen+1)])
+		print(ys)
+		plt.bar([i for i in range(1,sentlen+1)],ys,tick_label=[i for i in range(1,sentlen+1)],edgecolor='k')
+		plt.show()
+	if return_dist == True:
+		return token_head_pos_dist
+	elif return_raw_count == True:
+		return token_head_pos
 
 def vis_func_token_head_dist(token,sentlen,trees):
 	res = dict(Counter(func_token_head_dist(token,sentlen,trees)))
