@@ -1,4 +1,3 @@
-from udql import entities
 import matplotlib.pyplot as plt
 from collections import Counter
 def func_word_mdd(word,trees):
